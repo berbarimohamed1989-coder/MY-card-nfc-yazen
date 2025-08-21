@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بطاقتي الرقمية</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f0f8ff; margin:0; padding:0; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+    .card { width:90%; max-width:400px; background:#fff; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.2); padding:20px; text-align:center; transition:transform 0.3s ease; }
+    .card:hover { transform:scale(1.02); }
+    .profile-img { width:120px; height:120px; border-radius:50%; object-fit:cover; margin-bottom:15px; border:3px solid #007BFF; }
+    h2 { margin:10px 0; color:#007BFF; }
+    p { color:#555; font-size:14px; }
+    .contact-info a { display:block; color:#333; text-decoration:none; margin:5px 0; font-size:15px; }
+    .social-links a { margin:0 10px; font-size:26px; color:#007BFF; text-decoration:none; }
+    .btn { margin:10px 5px; padding:10px 20px; background-color:#007BFF; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px; text-decoration:none; display:inline-block; transition:background 0.3s; }
+    .btn:hover { background-color:#0056b3; }
+    .contact-form { margin-top:20px; text-align:left; }
+    .contact-form label { display:block; margin-bottom:5px; font-weight:bold; }
+    .contact-form input, .contact-form textarea { width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; font-size:14px; }
+    @media (max-width:500px) {
+        .card { padding:15px; }
+        .profile-img { width:100px; height:100px; }
+        .btn { padding:8px 15px; font-size:14px; }
+        .social-links a { font-size:22px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="card">
+    <!-- الصورة الشخصية -->
+    <img src="photo.jpg" alt="محمد برابري" class="profile-img">
+
+    <!-- الاسم والرسالة -->
+    <h2>محمد برابري</h2>
+    <p>مرحباً بك في بطاقتي الرقمية</p>
+
+    <!-- معلومات الاتصال -->
+    <div class="contact-info">
+        <a href="tel:+213123456789">📞 +213123456789</a>
+        <a href="mailto:example@email.com">✉ example@email.com</a>
+    </div>
+
+    <!-- روابط التواصل الاجتماعي -->
+    <div class="social-links">
+        <a href="https://www.facebook.com/username" target="_blank">🔵</a>
+        <a href="https://www.linkedin.com/in/username" target="_blank">🔗</a>
+        <a href="https://wa.me/213123456789" target="_blank">💬</a>
+    </div>
+
+    <!-- أزرار حفظ الرقم وتحميل vCard -->
+    <a href="#" class="btn" onclick="saveContact()">💾 حفظ الرقم</a>
+    <a href="#" class="btn" onclick="downloadVCard()">📁 تحميل vCard</a>
+
+    <!-- نموذج التواصل -->
+    <div class="contact-form">
+        <h3>تواصل معنا</h3>
+        <form onsubmit="return sendMessage()">
+            <label for="name">الاسم:</label>
+            <input type="text" id="name" required>
+            <label for="email">الإيميل:</label>
+            <input type="email" id="email" required>
+            <label for="message">رسالتك:</label>
+            <textarea id="message" rows="4" required></textarea>
+            <button type="submit">إرسال</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function saveContact() {
+        const contact = {
+            name: "محمد برابري",
+            phone: "+213123456789",
+            email: "example@email.com"
+        };
+        alert("رقم الهاتف محفوظ!\n" + JSON.stringify(contact, null, 2));
+    }
+
+    function downloadVCard() {
+        const vCard = `BEGIN:VCARD
+VERSION:3.0
+FN:محمد برابري
+TEL;TYPE=CELL:+213123456789
+EMAIL:example@email.com
+END:VCARD`;
+        const blob = new Blob([vCard], { type: 'text/vcard' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Mohamed_Berbari.vcf';
+        link.click();
+    }
+
+    function sendMessage() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        alert("شكراً " + name + "، تم إرسال رسالتك:\n" + message);
+        return false;
+    }
+</script>
+
+</body>
+</html>
